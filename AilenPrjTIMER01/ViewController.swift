@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     var counter = 1
     var myTimer = Timer()
     var de = true
+    var re = true
     @IBOutlet weak var alienImageView: UIImageView!
     
     @IBOutlet weak var lbl01: UILabel!
@@ -27,12 +28,16 @@ class ViewController: UIViewController {
     }
 
     @IBAction func play(_ sender: Any) {
-        myTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.doAnimation), userInfo: nil, repeats: true)
+        if re == true {
+            myTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.doAnimation), userInfo: nil, repeats: true)
+            re = false
+        } else if re == false {
+        myTimer.invalidate()
+            re = true
+        }
+        
     }
     
-    @IBAction func stop(_ sender: Any) {
-        myTimer.invalidate()
-    }
     @objc func doAnimation(){
         if counter == 5{
             de = false
